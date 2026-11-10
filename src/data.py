@@ -17,3 +17,14 @@ def get_sensor_groups(df):
         "Thermopile": [c for c in df.columns if c.startswith("thm_")],
         "ToF": [c for c in df.columns if c.startswith("tof_")],
     }
+
+def get_sequence_labels(df):
+    """Return one row per sequence with its gesture, sequence type and subject."""
+    return df.groupby("sequence_id")[["gesture", "sequence_type", "subject"]].first()
+
+
+def extract_features(df, feature_cols):
+    """Summarize each sequence into one row using statistics of the given columns."""
+    agg = df.groupby("sequence_id")[feature_cols].agg(["mean", "std", "min", "max"])
+    agg.columns = [f"{col}_{stat}" for col, stat in agg.columns]
+    return agg
