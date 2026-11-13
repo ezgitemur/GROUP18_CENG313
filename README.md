@@ -36,6 +36,8 @@ Sensor columns:
 - **Thermopile (5):** temperature sensors (`thm_1`–`thm_5`)
 - **ToF (320):** 5 time-of-flight sensors with 8×8 pixels each (`tof_1_v0`–`tof_5_v63`)
 
+Remaining missing values are filled with the column median inside the model pipeline (fitted on the training folds only), so no information from held-out participants leaks into training.
+
 The data is not included in this repository. It is downloaded via the Kaggle API inside the notebooks.
 
 ## Approach
